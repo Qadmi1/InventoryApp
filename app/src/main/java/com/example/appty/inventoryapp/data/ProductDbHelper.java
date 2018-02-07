@@ -4,13 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.appty.inventoryapp.data.Contract.BookEntry;
+import com.example.appty.inventoryapp.data.Contract.ProductEntry;
 
 /**
  * Created by appty on 25/01/18.
  */
 
-public class BookDbHelper extends SQLiteOpenHelper {
+public class ProductDbHelper extends SQLiteOpenHelper {
 
     /**
      * Name of the database file
@@ -23,26 +23,26 @@ public class BookDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     /**
-     * Constructs a new instance of {@link BookDbHelper}.
+     * Constructs a new instance of {@link ProductDbHelper}.
      *
      * @param context of the app
      */
-    public BookDbHelper(Context context) {
+    public ProductDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the table
-        String SQL_CREATE_PETS_TABLE = "CREATE TABLE " + BookEntry.TABLE_NAME + " ("
-                + BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + BookEntry.COLUMN_BOOK_NAME + " TEXT , "
-                + BookEntry.COLUMN_BOOK_PRICE + " INTEGER , "
-                + BookEntry.COLUMN_BOOK_QUANTITY + " INTEGER , "
-                + BookEntry.COLUMN_BOOK_IMAGE + " TEXT , "
-                + BookEntry.COLUMN_BOOK_SUPPLIER_NAME + " TEXT , "
-                + BookEntry.COLUMN_BOOK_SUPPLIER_EMAIL + " TEXT , "
-                + BookEntry.COLUMN_BOOK_SUPPLIER_NUMBER + " INTEGER  );";
+        String SQL_CREATE_PETS_TABLE = "CREATE TABLE " + ProductEntry.TABLE_NAME + " ("
+                + ProductEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ProductEntry.COLUMN_PRODUCT_NAME + " TEXT , "
+                + ProductEntry.COLUMN_PRODUCT_PRICE + " INTEGER , "
+                + ProductEntry.COLUMN_PRODUCT_QUANTITY + " INTEGER , "
+                + ProductEntry.COLUMN_PRODUCT_IMAGE + " TEXT , "
+                + ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + " TEXT , "
+                + ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL + " TEXT , "
+                + ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER + " INTEGER  );";
 
 
         // Execute the SQL statement
