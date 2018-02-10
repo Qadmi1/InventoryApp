@@ -65,18 +65,14 @@ public class ProductProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
             case PRODUCT:
-                // For the PETS code, query the pets table directly with the given
+                // For the PRODUCT code, query the table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
-                // could contain multiple rows of the pets table.
+                // could contain multiple rows of the table.
                 cursor = db.query(ProductEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             case PRODUCT_ID:
-                // For the PET_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.pets/pets/3",
-                // the selection will be "_id=?" and the selection argument will be a
-                // String array containing the actual ID of 3 in this case.
-                //
+                // For the PRODUCT_ID code, extract out the ID from the URI.
                 // For every "?" in the selection, we need to have an element in the selection
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
@@ -106,10 +102,37 @@ public class ProductProvider extends ContentProvider {
     }
 
     /**
-     * Insert a pet into the database with the given content values. Return the new content URI
+     * Insert a product into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
     private Uri insertProduct(Uri uri, ContentValues values) {
+
+        // Check that the name is not null
+        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+        if (name == null) {
+            throw new IllegalArgumentException("Produ requires a name");
+        }
+
+        // If the price is provided, check that it's greater than or equal to 0
+        Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
+        if (price != null && price < 0) {
+            throw new IllegalArgumentException("Produ requires valid price");
+        }
+
+        int Produ = 0;
+        // If the quantity is provided, check that it's greater than or equal to 0
+        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        if (quantity != null && quantity < 0) {
+            throw new IllegalArgumentException("Produ requires valid quantity");
+        }
+
+        // Check that the supplier's name is not null
+        String supplierName = values.getAsString(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("Produ requires a name");
+        }
+
+
         // Get writeable database
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
 
@@ -132,7 +155,7 @@ public class ProductProvider extends ContentProvider {
             case PRODUCT:
                 return updateProduct(uri, contentValues, selection, selectionArgs);
             case PRODUCT_ID:
-                // For the PET_ID code, extract out the ID from the URI,
+                // For the PRODUCT_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = ProductEntry._ID + "=?";
@@ -144,12 +167,42 @@ public class ProductProvider extends ContentProvider {
     }
 
     /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
+     * Update products in the database with the given content values. Apply the changes to the rows
      * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
      * Return the number of rows that were successfully updated.
      */
     private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
+        // Check that the name is not null
+        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+        if (name == null) {
+            throw new IllegalArgumentException("Produ requires a name");
+        }
+
+        // If the price is provided, check that it's greater than or equal to 0
+        Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
+        if (price != null && price < 0) {
+            throw new IllegalArgumentException("Produ requires valid price");
+        }
+
+        int Produ = 0;
+        // If the quantity is provided, check that it's greater than or equal to 0
+        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        if (quantity != null && quantity < 0) {
+            throw new IllegalArgumentException("Produ requires valid quantity");
+        }
+
+        // Check that the supplier's name is not null
+        String supplierName = values.getAsString(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("Produ requires a name");
+        }
+
+        // If there are no values to update, then don't try to update the database
+        if (values.size() == 0) {
+            return 0;
+        }
+        
         // Otherwise, get writeable database to update the data
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
 
