@@ -15,4 +15,8 @@
 
     <string name="action_save">Save</string>
 
+    <string name="pet_insert_success">Product Saved</string>
+
+    <string name="pet_insert_fail">Error with saving product</string>
+
 </resources>

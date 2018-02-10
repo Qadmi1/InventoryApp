@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        displayDatabaseInfo();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        displayDatabaseInfo();
     }
 
     // This method insert dummy data to the table
@@ -52,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER, 111111);
 
         // Insert a new row to the table
-        long newDummyRow = db.insert(ProductEntry.TABLE_NAME, null, values);
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
     }
 
     // This method returns a cursor with the desired columns
