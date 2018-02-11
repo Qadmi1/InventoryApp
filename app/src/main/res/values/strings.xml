@@ -19,4 +19,6 @@
 
     <string name="pet_insert_fail">Error with saving product</string>
 
+    <string name="sale">Sale</string>
+
 </resources>

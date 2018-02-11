@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/product_name"
+            android:text="@string/product_name"
+            style="@style/text_product"
+            />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:text="@string/product_price"
+            style="@style/text_product"
+            />
+
+        <TextView
+            android:id="@+id/product_quantity"
+            android:text="@string/product_quantity"
+            style="@style/text_product"
+            />
+
+        <TextView
+            android:id="@+id/supplier_name"
+            android:text="@string/supplier_name"
+            style="@style/text_product"
+            />
+
+        <TextView
+            android:id="@+id/supplier_email"
+            android:text="@string/supplier_email"
+            style="@style/text_product"
+            />
+
+        <TextView
+            android:id="@+id/supplier_number"
+            android:text="@string/supplier_number"
+            style="@style/text_product"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:hint="@string/product_name"
+            style="@style/edit_product"
+            />
+
+        <EditText
+            android:id="@+id/edit_price"
+            android:hint="@string/product_price"
+            style="@style/edit_product"
+            />
+
+        <EditText
+            android:id="@+id/edit_quantity"
+            android:hint="@string/product_quantity"
+            style="@style/edit_product"
+            />
+
+        <EditText
+            android:id="@+id/edit_supplier_name"
+            android:hint="@string/supplier_number"
+            style="@style/edit_product"
+            />
+
+        <EditText
+            android:id="@+id/edit_supplier_email"
+            android:hint="@string/supplier_email"
+            style="@style/edit_product"
+            />
+
+        <EditText
+            android:id="@+id/edit_supplier_number"
+            android:hint="@string/supplier_number"
+            style="@style/edit_product"
+            />
+
+    </LinearLayout>
+</LinearLayout>
