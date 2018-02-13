@@ -26,4 +26,29 @@
     <string name="action_edit">Edit</string>
 
     <string name="title_edit_product">Edit Product</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <string name="action_delete">Delete</string>
+
+    <string name="delete_dialog_msg">Delete this product?</string>
+
+    <string name="delete">Delete</string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="delete_success">Delete successful</string>
+
+    <string name="delete_error">Error with deleting the product</string>
+
+    <string name="delete_all">Delete all products</string>
+
+
 </resources>
