@@ -21,4 +21,6 @@
 
     <string name="sale">Sale</string>
 
+    <string name="empty_view">Press the floating button to add a product.</string>
+
 </resources>

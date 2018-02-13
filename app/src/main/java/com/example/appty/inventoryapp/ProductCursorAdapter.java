@@ -33,7 +33,7 @@ public class ProductCursorAdapter extends CursorAdapter {
         TextView productName = view.findViewById(R.id.product_item_name);
         TextView productPrice = view.findViewById(R.id.product_item_price);
         TextView productQuantity = view.findViewById(R.id.product_item_quantity);
-        Button saleButton = view.findViewById(R.id.sale_button);
+//        Button saleButton = view.findViewById(R.id.sale_button);
 
         // Find the columns of product attributes that we're interested in
         int productColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);

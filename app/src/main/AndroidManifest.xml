@@ -24,6 +24,13 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
 
+        <activity
+            android:name=".ProductDetails" />
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
         <provider
             android:name=".data.ProductProvider"
             android:authorities="com.example.android.books"
