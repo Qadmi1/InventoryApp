@@ -79,8 +79,11 @@ public class EditorActivity extends AppCompatActivity implements
         supplierNameEditText = findViewById(R.id.edit_supplier_name);
         supplierEmailEditText = findViewById(R.id.edit_supplier_email);
         supplierNumberEditText = findViewById(R.id.edit_supplier_number);
-        getLoaderManager().initLoader(PRODUCT_LOADER_EDIT, null, this);
 
+        if (currentProductUri != null) {
+            setTitle(R.string.title_edit_product);
+            getLoaderManager().initLoader(PRODUCT_LOADER_EDIT, null, this);
+        }
 
     }
 
@@ -192,31 +195,22 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
-            String priceString = cursor.getString(priceColumnIndex);
-            int price = 0;
-            if (!TextUtils.isEmpty(priceString)) {
-                price = Integer.parseInt(priceString);
-            }
-            String quantityString = cursor.getString(quantityColumnIndex);
-            int quantity = 0;
-            if (!TextUtils.isEmpty(quantityString)) {
-                quantity = Integer.parseInt(quantityString);
-            }
+//            String priceString = cursor.getString(priceColumnIndex);
+            int price = cursor.getInt(priceColumnIndex);
+//            String quantityString = cursor.getString(quantityColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierEmail = cursor.getString(supplierEmailColumnIndex);
-            String supplierNumberString = cursor.getString(supplierNumberColumnIndex);
-            int supplierNumber = 0;
-            if (!TextUtils.isEmpty(supplierNumberString)) {
-                supplierNumber = Integer.parseInt(supplierNumberString);
-            }
+//            String supplierNumberString = cursor.getString(supplierNumberColumnIndex);
+            int supplierNumber = cursor.getInt(supplierNumberColumnIndex);
 
             // Update the views on the screen with the values from the database
             nameEditText.setText(name);
-            priceEditText.setText(price);
-            quantityEditText.setText(quantity);
+            priceEditText.setText(Integer.toString(price));
+            quantityEditText.setText(Integer.toString(quantity));
             supplierNameEditText.setText(supplierName);
             supplierEmailEditText.setText(supplierEmail);
-            supplierNumberEditText.setText(supplierNumber);
+            supplierNumberEditText.setText(Integer.toString(supplierNumber));
 
         }
     }

@@ -99,6 +99,7 @@ public class ProductDetails extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_item:
+                editProduct();
                 break;
         }
         return super.onOptionsItemSelected(item);

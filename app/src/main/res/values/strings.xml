@@ -24,4 +24,6 @@
     <string name="empty_view">Press the floating button to add a product.</string>
 
     <string name="action_edit">Edit</string>
+
+    <string name="title_edit_product">Edit Product</string>
 </resources>
