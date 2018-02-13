@@ -1,6 +1,7 @@
 package com.example.appty.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.appty.inventoryapp.data.Contract.ProductEntry;
@@ -75,6 +78,30 @@ public class ProductDetails extends AppCompatActivity implements
 
         getLoaderManager().initLoader(PRODUCT_LOADER_DETAILS, null, this);
 
+    }
+
+    private void editProduct(){
+        Intent intent = new Intent(ProductDetails.this, EditorActivity.class);
+        Uri currentProductURIEdit = currentProductUri;
+
+        intent.setData(currentProductURIEdit);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_product, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit_item:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -151,8 +178,6 @@ public class ProductDetails extends AppCompatActivity implements
 
 
         }
-
-
     }
 
     @Override

@@ -1,6 +1,11 @@
 package com.example.appty.inventoryapp;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +20,8 @@ import android.widget.Toast;
 import com.example.appty.inventoryapp.data.Contract.ProductEntry;
 
 
-public class EditorActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
      * Identifier for the product data loader
@@ -57,10 +63,15 @@ public class EditorActivity extends AppCompatActivity {
      */
     private EditText supplierNumberEditText;
 
+    private int PRODUCT_LOADER_EDIT = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        Intent intent = getIntent();
+        currentProductUri = intent.getData();
 
         nameEditText = findViewById(R.id.edit_name);
         priceEditText = findViewById(R.id.edit_price);
@@ -68,6 +79,7 @@ public class EditorActivity extends AppCompatActivity {
         supplierNameEditText = findViewById(R.id.edit_supplier_name);
         supplierEmailEditText = findViewById(R.id.edit_supplier_email);
         supplierNumberEditText = findViewById(R.id.edit_supplier_number);
+        getLoaderManager().initLoader(PRODUCT_LOADER_EDIT, null, this);
 
 
     }
@@ -133,5 +145,84 @@ public class EditorActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Since the details shows all product attributes, define a projection that contains
+        // all columns from the product table
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
+                ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL,
+                ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER
+        };
+
+        return new CursorLoader(
+                this,
+                currentProductUri,
+                projection,
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of pet attributes that we're interested in
+            int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+            int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL);
+            int supplierNumberColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER);
+
+            // Extract out the value from the Cursor for the given column index
+            String name = cursor.getString(nameColumnIndex);
+            String priceString = cursor.getString(priceColumnIndex);
+            int price = 0;
+            if (!TextUtils.isEmpty(priceString)) {
+                price = Integer.parseInt(priceString);
+            }
+            String quantityString = cursor.getString(quantityColumnIndex);
+            int quantity = 0;
+            if (!TextUtils.isEmpty(quantityString)) {
+                quantity = Integer.parseInt(quantityString);
+            }
+            String supplierName = cursor.getString(supplierNameColumnIndex);
+            String supplierEmail = cursor.getString(supplierEmailColumnIndex);
+            String supplierNumberString = cursor.getString(supplierNumberColumnIndex);
+            int supplierNumber = 0;
+            if (!TextUtils.isEmpty(supplierNumberString)) {
+                supplierNumber = Integer.parseInt(supplierNumberString);
+            }
+
+            // Update the views on the screen with the values from the database
+            nameEditText.setText(name);
+            priceEditText.setText(price);
+            quantityEditText.setText(quantity);
+            supplierNameEditText.setText(supplierName);
+            supplierEmailEditText.setText(supplierEmail);
+            supplierNumberEditText.setText(supplierNumber);
+
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }
