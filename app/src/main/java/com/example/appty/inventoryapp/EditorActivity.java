@@ -105,6 +105,10 @@ public class EditorActivity extends AppCompatActivity implements
             setTitle(R.string.title_edit_product);
             getLoaderManager().initLoader(PRODUCT_LOADER_EDIT, null, this);
         }
+        else {
+            setTitle(R.string.title_add_product);
+
+        }
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them.

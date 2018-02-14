@@ -52,5 +52,12 @@
 
     <string name="sold_out">Product sold out!</string>
 
+    <string name="title_add_product">Add product</string>
+
+    <string name="call">Call</string>
+
+    <string name="add_quantity">Add</string>
+
+    <string name="sell_quantity">Sell</string>
 
 </resources>

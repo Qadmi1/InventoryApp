@@ -13,7 +13,7 @@ import com.example.appty.inventoryapp.data.Contract.ProductEntry;
  * Created by appty on 10/02/18.
  */
 
-public class ProductCursorAdapter extends CursorAdapter {
+public class ProductCursorAdapter extends CursorAdapter{
     public ProductCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
@@ -53,4 +53,5 @@ public class ProductCursorAdapter extends CursorAdapter {
         productQuantity.setText(String.valueOf(quantity));
 
     }
+
 }

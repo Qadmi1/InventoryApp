@@ -2,33 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-    <TextView
-        android:id="@+id/product_item_name"
-       style="@style/product_item_name"
-        android:hint="Name"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/product_item_price"
-        style="@style/product_item_price_quantity"
-        android:hint="price"/>
+        <TextView
+            android:id="@+id/product_item_name"
+            style="@style/product_item_name"
+            android:hint="Name" />
 
-    <TextView
-        android:id="@+id/product_item_quantity"
-        style="@style/product_item_price_quantity"
-        android:hint="quantity"
-        />
+        <TextView
+            android:id="@+id/product_item_price"
+            style="@style/product_item_price_quantity"
+            android:hint="price" />
+
+        <TextView
+            android:id="@+id/product_item_quantity"
+            style="@style/product_item_price_quantity"
+            android:hint="quantity" />
     </LinearLayout>
 
     <!--<Button-->
         <!--android:id="@+id/sale_button"-->
-       <!--style="@style/sale_button" />-->
+        <!--style="@style/sale_button"-->
+   <!--/>-->
 
 
 </LinearLayout>

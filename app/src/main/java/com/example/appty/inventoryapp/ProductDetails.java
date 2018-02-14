@@ -1,5 +1,6 @@
 package com.example.appty.inventoryapp;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -8,10 +9,12 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -65,8 +68,13 @@ public class ProductDetails extends AppCompatActivity implements
 
     private int PRODUCT_LOADER_DETAILS = 1;
 
-    private int quantity = 0;
-
+    private int quantity;
+    private String name;
+    private int price;
+    private String supplierName;
+    private String supplierEmail;
+    private int supplierNumber;
+    private  String supplierNumberString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +100,11 @@ public class ProductDetails extends AppCompatActivity implements
         Button reduceButton = findViewById(R.id.reduce_quantity_button_detail);
         reduceButton.setOnClickListener(this);
 
+        Button dialSupplier = findViewById(R.id.call_supplier);
+        dialSupplier.setOnClickListener(this);
+//        Button saleButton = findViewById(R.id.sale_button);
+//        saleButton.setOnClickListener(this);
+
         getLoaderManager().initLoader(PRODUCT_LOADER_DETAILS, null, this);
 
     }
@@ -107,7 +120,7 @@ public class ProductDetails extends AppCompatActivity implements
 
     private void showDeleteConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
@@ -221,9 +234,9 @@ public class ProductDetails extends AppCompatActivity implements
             int supplierNumberColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER);
 
             // Extract out the value from the Cursor for the given column index
-            String name = cursor.getString(nameColumnIndex);
+            name = cursor.getString(nameColumnIndex);
             String priceString = cursor.getString(priceColumnIndex);
-            int price = 0;
+            price = 0;
             if (!TextUtils.isEmpty(priceString)) {
                 price = Integer.parseInt(priceString);
             }
@@ -231,10 +244,10 @@ public class ProductDetails extends AppCompatActivity implements
             if (!TextUtils.isEmpty(quantityString)) {
                 quantity = Integer.parseInt(quantityString);
             }
-            String supplierName = cursor.getString(supplierNameColumnIndex);
-            String supplierEmail = cursor.getString(supplierEmailColumnIndex);
-            String supplierNumberString = cursor.getString(supplierNumberColumnIndex);
-            int supplierNumber = 0;
+            supplierName = cursor.getString(supplierNameColumnIndex);
+            supplierEmail = cursor.getString(supplierEmailColumnIndex);
+            supplierNumberString = cursor.getString(supplierNumberColumnIndex);
+            supplierNumber = 0;
             if (!TextUtils.isEmpty(supplierNumberString)) {
                 supplierNumber = Integer.parseInt(supplierNumberString);
             }
@@ -265,6 +278,11 @@ public class ProductDetails extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
         ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, supplierName);
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL, supplierEmail);
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER, supplierNumber);
         switch (view.getId()) {
             case R.id.add_quantity_button_detail:
                 quantity++;
@@ -277,12 +295,29 @@ public class ProductDetails extends AppCompatActivity implements
                     quantity--;
                     values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
                     getContentResolver().update(currentProductUri, values, null, null);
-                }
-                else {
+                } else {
                     Toast.makeText(this, getString(R.string.sold_out),
                             Toast.LENGTH_SHORT).show();
                 }
-                    break;
+                break;
+
+            case R.id.call_supplier:
+                //Intent to dial the supplier
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + supplierNumberString));
+                startActivity(intent);
+                break;
+//            case R.id.sale_button:
+//                if (quantity > 0) {
+//                    quantity--;
+//                    values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+//                    getContentResolver().update(currentProductUri, values, null, null);
+//                }
+//                else {
+//                    Toast.makeText(this, getString(R.string.sold_out),
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//                break;
         }
 
 
