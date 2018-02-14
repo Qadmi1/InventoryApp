@@ -3,6 +3,7 @@ package com.example.appty.inventoryapp;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +14,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,7 @@ import com.example.appty.inventoryapp.data.Contract.ProductEntry;
 
 
 public class ProductDetails extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>, Button.OnClickListener {
 
     /**
      * Content URI for the existing product
@@ -61,6 +65,8 @@ public class ProductDetails extends AppCompatActivity implements
 
     private int PRODUCT_LOADER_DETAILS = 1;
 
+    private int quantity = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,11 +85,18 @@ public class ProductDetails extends AppCompatActivity implements
         supplierEmailTextView = findViewById(R.id.text_supplier_email);
         supplierNumberTextView = findViewById(R.id.text_supplier_number);
 
+
+        Button addButton = findViewById(R.id.add_quantity_button_detail);
+        addButton.setOnClickListener(this);
+
+        Button reduceButton = findViewById(R.id.reduce_quantity_button_detail);
+        reduceButton.setOnClickListener(this);
+
         getLoaderManager().initLoader(PRODUCT_LOADER_DETAILS, null, this);
 
     }
 
-    private void editProduct(){
+    private void editProduct() {
         Intent intent = new Intent(ProductDetails.this, EditorActivity.class);
         Uri currentProductURIEdit = currentProductUri;
 
@@ -215,7 +228,6 @@ public class ProductDetails extends AppCompatActivity implements
                 price = Integer.parseInt(priceString);
             }
             String quantityString = cursor.getString(quantityColumnIndex);
-            int quantity = 0;
             if (!TextUtils.isEmpty(quantityString)) {
                 quantity = Integer.parseInt(quantityString);
             }
@@ -248,5 +260,31 @@ public class ProductDetails extends AppCompatActivity implements
         supplierNameTextView.setText("");
         supplierEmailTextView.setText("");
         supplierNumberTextView.setText("");
+    }
+
+    @Override
+    public void onClick(View view) {
+        ContentValues values = new ContentValues();
+        switch (view.getId()) {
+            case R.id.add_quantity_button_detail:
+                quantity++;
+                values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+                getContentResolver().update(currentProductUri, values, null, null);
+                break;
+
+            case R.id.reduce_quantity_button_detail:
+                if (quantity > 0) {
+                    quantity--;
+                    values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+                    getContentResolver().update(currentProductUri, values, null, null);
+                }
+                else {
+                    Toast.makeText(this, getString(R.string.sold_out),
+                            Toast.LENGTH_SHORT).show();
+                }
+                    break;
+        }
+
+
     }
 }

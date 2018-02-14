@@ -77,4 +77,25 @@
             />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/add_quantity_button_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            />
+
+        <Button
+            android:id="@+id/reduce_quantity_button_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reduce"/>
+    </LinearLayout>
+
+
 </LinearLayout>

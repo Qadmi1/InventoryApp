@@ -182,34 +182,34 @@ public class ProductProvider extends ContentProvider {
      */
     private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-        // Check that the name is not null
-        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
-        if (name == null) {
-            throw new IllegalArgumentException("Product requires a name");
-        }
-
-        // If the price is provided, check that it's greater than or equal to 0
-        Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
-        if (price != null && price < 0) {
-            throw new IllegalArgumentException("Product requires valid price");
-        }
-
-        // If the quantity is provided, check that it's greater than or equal to 0
-        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        if (quantity != null && quantity < 0) {
-            throw new IllegalArgumentException("Product requires valid quantity");
-        }
-
-        // Check that the supplier's name is not null
-        String supplierName = values.getAsString(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
-        if (supplierName == null) {
-            throw new IllegalArgumentException("Product requires a supplier name");
-        }
-
-        // If there are no values to update, then don't try to update the database
-        if (values.size() == 0) {
-            return 0;
-        }
+//        // Check that the name is not null
+//        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+//        if (name == null) {
+//            throw new IllegalArgumentException("Product requires a name");
+//        }
+//
+//        // If the price is provided, check that it's greater than or equal to 0
+//        Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
+//        if (price != null && price < 0) {
+//            throw new IllegalArgumentException("Product requires valid price");
+//        }
+//
+//        // If the quantity is provided, check that it's greater than or equal to 0
+//        Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+//        if (quantity != null && quantity < 0) {
+//            throw new IllegalArgumentException("Product requires valid quantity");
+//        }
+//
+//        // Check that the supplier's name is not null
+//        String supplierName = values.getAsString(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+//        if (supplierName == null) {
+//            throw new IllegalArgumentException("Product requires a supplier name");
+//        }
+//
+//        // If there are no values to update, then don't try to update the database
+//        if (values.size() == 0) {
+//            return 0;
+//        }
 
         // Otherwise, get writeable database to update the data
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
