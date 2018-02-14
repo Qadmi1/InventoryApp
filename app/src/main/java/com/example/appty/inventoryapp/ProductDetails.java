@@ -100,8 +100,8 @@ public class ProductDetails extends AppCompatActivity implements
         Button reduceButton = findViewById(R.id.reduce_quantity_button_detail);
         reduceButton.setOnClickListener(this);
 
-        Button dialSupplier = findViewById(R.id.call_supplier);
-        dialSupplier.setOnClickListener(this);
+//        Button dialSupplier = findViewById(R.id.call_supplier);
+//        dialSupplier.setOnClickListener(this);
 //        Button saleButton = findViewById(R.id.sale_button);
 //        saleButton.setOnClickListener(this);
 
@@ -283,6 +283,7 @@ public class ProductDetails extends AppCompatActivity implements
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, supplierName);
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL, supplierEmail);
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NUMBER, supplierNumber);
+
         switch (view.getId()) {
             case R.id.add_quantity_button_detail:
                 quantity++;
@@ -301,12 +302,12 @@ public class ProductDetails extends AppCompatActivity implements
                 }
                 break;
 
-            case R.id.call_supplier:
-                //Intent to dial the supplier
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + supplierNumberString));
-                startActivity(intent);
-                break;
+//            case R.id.call_supplier:
+//                //Intent to dial the supplier
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                intent.setData(Uri.parse("tel:" + supplierNumberString));
+//                startActivity(intent);
+//                break;
 //            case R.id.sale_button:
 //                if (quantity > 0) {
 //                    quantity--;
